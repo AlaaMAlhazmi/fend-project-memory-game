@@ -12,6 +12,9 @@ function respondToTheClick(evt) {
   if(openCards.length >1){
       if (openCards[0].classList[1] === openCards[1].classList[1]){
         match();
+      }else {
+        missmatch();
+        setTimeout(hide, 700);
       }
     }
 }
@@ -26,6 +29,19 @@ function match(){
   openCards[0].parentElement.classList = "card match";
   openCards[1].parentElement.classList = "card match";
   //If cards match reinitialize cards list (to save memory)
+  openCards = [];
+}
+
+//mismatch function
+function missmatch(){
+  openCards[0].parentElement.classList = "card missmatch";
+  openCards[1].parentElement.classList = "card missmatch";
+}
+
+//Hide function
+function hide(){
+  openCards[0].parentElement.classList = "card";
+  openCards[1].parentElement.classList = "card";
   openCards = [];
 }
 
