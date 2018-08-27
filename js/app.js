@@ -1,18 +1,13 @@
 /*
  * Create a list that holds all of your cards
  */
+let openCards = [];
 
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
 
 function respondToTheClick(evt) {
   if(evt.target.className === 'card'){
     displaySymbol(evt);
+    addCardToList(evt);
   }
 }
 
@@ -20,6 +15,13 @@ function respondToTheClick(evt) {
 function displaySymbol(evt){
     evt.target.classList.add('open', 'show');
 }
+
+/*
+ * Display the cards on the page
+ *   - shuffle the list of cards using the provided "shuffle" method below
+ *   - loop through each card and create its HTML
+ *   - add each card's HTML to the page
+ */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -34,6 +36,11 @@ function shuffle(array) {
     }
 
     return array;
+}
+
+// Add card to openCards list
+function addCardToList(evt){
+  openCards.push(evt.target.firstElementChild);
 }
 
 
