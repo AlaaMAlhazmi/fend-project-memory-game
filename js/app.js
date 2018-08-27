@@ -1,9 +1,10 @@
 /*
  * Create a list that holds all of your cards
  */
+
 let openCards = [];
 let movesCounter = 0;
-
+let matchedCounter = 0;
 
 function respondToTheClick(evt) {
   if(evt.target.className === 'card'){
@@ -12,6 +13,10 @@ function respondToTheClick(evt) {
     if(openCards.length >1){
       if (openCards[0].classList[1] === openCards[1].classList[1]){
         match();
+        matchedCounter++;
+        if (matchedCounter === 8){
+          won();
+        }
       }else{
         missmatch();
         setTimeout(hide, 700);
@@ -26,7 +31,7 @@ function displaySymbol(evt){
     evt.target.classList.add('open', 'show');
 }
 
-//Match function
+//Match functionality
 function match(){
   openCards[0].parentElement.classList = "card match";
   openCards[1].parentElement.classList = "card match";
@@ -34,13 +39,13 @@ function match(){
   openCards = [];
 }
 
-//mismatch function
+//mismatch functionality
 function missmatch(){
   openCards[0].parentElement.classList = "card missmatch";
   openCards[1].parentElement.classList = "card missmatch";
 }
 
-//Hide function
+//Hide functionality
 function hide(){
   openCards[0].parentElement.classList = "card";
   openCards[1].parentElement.classList = "card";
@@ -56,6 +61,11 @@ function incrementMovesCounter(){
   }else if (movesCounter === 32) {
     document.querySelectorAll('.fa-star')[1].className = "fa fa-star-o";
   }
+}
+
+//Winning functionality
+function won(){
+  document.querySelector('.messege').classList.add('show');
 }
 
 /*
