@@ -9,11 +9,24 @@ function respondToTheClick(evt) {
     displaySymbol(evt);
     addCardToList(evt);
   }
+  if(openCards.length >1){
+      if (openCards[0].classList[1] === openCards[1].classList[1]){
+        match();
+      }
+    }
 }
 
 //Sisplay the card symbol
 function displaySymbol(evt){
     evt.target.classList.add('open', 'show');
+}
+
+//Match function
+function match(){
+  openCards[0].parentElement.classList = "card match";
+  openCards[1].parentElement.classList = "card match";
+  //If cards match reinitialize cards list (to save memory)
+  openCards = [];
 }
 
 /*
