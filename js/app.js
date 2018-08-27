@@ -2,21 +2,23 @@
  * Create a list that holds all of your cards
  */
 let openCards = [];
+let movesCounter = 0;
 
 
 function respondToTheClick(evt) {
   if(evt.target.className === 'card'){
     displaySymbol(evt);
     addCardToList(evt);
-  }
-  if(openCards.length >1){
+    if(openCards.length >1){
       if (openCards[0].classList[1] === openCards[1].classList[1]){
         match();
-      }else {
+      }else{
         missmatch();
         setTimeout(hide, 700);
       }
     }
+    incrementMovesCounter();
+  }
 }
 
 //Sisplay the card symbol
@@ -43,6 +45,17 @@ function hide(){
   openCards[0].parentElement.classList = "card";
   openCards[1].parentElement.classList = "card";
   openCards = [];
+}
+
+//Increment the moves counter
+function incrementMovesCounter(){
+  movesCounter++;
+  document.querySelector('.moves').textContent = movesCounter;
+  if(movesCounter === 24){
+    document.querySelectorAll('.fa-star')[2].className = "fa fa-star-o";
+  }else if (movesCounter === 32) {
+    document.querySelectorAll('.fa-star')[1].className = "fa fa-star-o";
+  }
 }
 
 /*
