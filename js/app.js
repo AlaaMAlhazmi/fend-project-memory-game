@@ -1,11 +1,21 @@
+"use strict";
 /*
  * Create a list that holds all of your cards
  */
-
 let openCards = [];
 let movesCounter = 0;
 let matchedCounter = 0;
 
+/*
+ * set up the event listener for a card. If a card is clicked:
+ *  - display the card's symbol (put this functionality in another function that you call from this one)
+ *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
+ *  - if the list already has another card, check to see if the two cards match
+ *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
+ *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
+ *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
+ *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+ */
 function respondToTheClick(evt) {
   if(evt.target.className === 'card'){
     displaySymbol(evt);
@@ -15,11 +25,11 @@ function respondToTheClick(evt) {
         match();
         matchedCounter++;
         if (matchedCounter === 8){
-          won();
+          setTimeout(won, 400);
         }
       }else{
         missmatch();
-        setTimeout(hide, 700);
+        setTimeout(hide, 600);
       }
     }
     incrementMovesCounter();
@@ -31,28 +41,33 @@ function displaySymbol(evt){
     evt.target.classList.add('open', 'show');
 }
 
+// Add card to openCards list
+function addCardToList(evt){
+    openCards.push(evt.target.firstElementChild);
+}
+
 //Match functionality
 function match(){
-  openCards[0].parentElement.classList = "card match";
-  openCards[1].parentElement.classList = "card match";
+  openCards[0].parentElement.classList.add('match');
+  openCards[1].parentElement.classList.add('match');
   //If cards match reinitialize cards list (to save memory)
   openCards = [];
 }
 
 //mismatch functionality
 function missmatch(){
-  openCards[0].parentElement.classList = "card missmatch";
-  openCards[1].parentElement.classList = "card missmatch";
+  openCards[0].parentElement.classList.add('missmatch');
+  openCards[1].parentElement.classList.add('missmatch');
 }
 
-//Hide functionality
+//Hide cards functionality
 function hide(){
   openCards[0].parentElement.classList = "card";
   openCards[1].parentElement.classList = "card";
   openCards = [];
 }
 
-//Increment the moves counter
+//Increment the moves counter And Stars
 function incrementMovesCounter(){
   movesCounter++;
   document.querySelector('.moves').textContent = movesCounter;
@@ -67,6 +82,7 @@ function incrementMovesCounter(){
 function won(){
   document.querySelector('.messege').classList.add('show');
 }
+
 
 /*
  * Display the cards on the page
@@ -90,21 +106,56 @@ function shuffle(array) {
     return array;
 }
 
-// Add card to openCards list
-function addCardToList(evt){
-  openCards.push(evt.target.firstElementChild);
+//Shuffle cards on the page
+function shuffleCards(){
+  const listOfCards = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb', 'fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'];
+  shuffle(listOfCards);
+  const cards = document.querySelectorAll('.card');
+  for (let i=0; i<cards.length; i++){
+    cards[i].firstElementChild.classList = "fa "+ (listOfCards[i]);
+  }
 }
 
+//Resetting Cards
+function resetCards(evt){
+  const cards = document.querySelectorAll('.card');
+  for (let i=0; i<cards.length; i++){
+    cards[i].className = 'card';
+  }
+  shuffleCards();
+  openCards = [];
+  matchedCounter = 0;
+}
 
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
+//Reset moves
+function resetMovesAndStars(){
+  //reset moves
+  movesCounter = 0;
+  document.querySelector('.moves').textContent = movesCounter;
+  //reset stars
+  const oStars = document.querySelectorAll('.fa-star-o')
+  for (let i=0; i<oStars.length; i++){
+    oStars[i].className = "fa fa-star";
+  }
+}
+
+//Restart Game
+function restartGame(){
+  resetCards();
+  resetMovesAndStars();
+  if (document.querySelector('.messege').classList.contains('show'))
+  {
+      document.querySelector('.messege').classList.remove('show')
+  }
+}
+
+///////////Code Sarts Here///////////////////
+
+ shuffleCards();
 const deck = document.querySelector('.deck');
 deck.addEventListener('click', respondToTheClick);
+
+const restart = document.querySelectorAll('.restart');
+for (let i=0; i<restart.length; i++){
+  restart[i].addEventListener('click', restartGame);
+}
