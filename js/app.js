@@ -29,7 +29,7 @@ function respondToTheClick(evt) {
         }
       }else{
         missmatch();
-        setTimeout(hide, 600);
+        setTimeout(hide, 700);
       }
     }
     incrementMovesCounter();
@@ -118,13 +118,13 @@ function shuffleCards(){
 
 //Resetting Cards
 function resetCards(evt){
+  openCards = [];
+  matchedCounter = 0;
   const cards = document.querySelectorAll('.card');
   for (let i=0; i<cards.length; i++){
     cards[i].className = 'card';
   }
   shuffleCards();
-  openCards = [];
-  matchedCounter = 0;
 }
 
 //Reset moves

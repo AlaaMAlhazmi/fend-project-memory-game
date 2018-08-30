@@ -62,11 +62,18 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+    -webkit-transition: transform 600ms; /* Safari */
+    transition: transform 600ms;
 }
 
 .deck .card.open {
     background: #02b3e4;
     cursor: default;
+    transform: rotateY(180deg);
+    transform-style: preserve-3d;
+    -webkit-transition: transform 600ms; /* Safari */
+    transition: transform 600ms;
 }
 
 .deck .card.show {
@@ -83,6 +90,8 @@ h1 {
   cursor: default;
   background: #F44336;
   font-size: 33px;
+  transform-style: preserve-3d;
+  transform: rotateY(180deg);
 }
 
 /*
