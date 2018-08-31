@@ -63,7 +63,7 @@ h1 {
     justify-content: center;
     align-items: center;
     box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
-    -webkit-transition: transform 600ms; /* Safari */
+    -webkit-transition: transform 600ms;/* Safari */
     transition: transform 600ms;
 }
 
@@ -72,8 +72,8 @@ h1 {
     cursor: default;
     transform: rotateY(180deg);
     transform-style: preserve-3d;
-    -webkit-transition: transform 600ms; /* Safari */
-    transition: transform 600ms;
+    -webkit-transition: transform 600ms, font-size 600ms; /* Safari */
+    transition: transform 600ms, font-size 600ms;
 }
 
 .deck .card.show {
