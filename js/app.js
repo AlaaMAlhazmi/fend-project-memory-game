@@ -140,7 +140,8 @@ function shuffle(array) {
 
 //Shuffle cards on the page
 function shuffleCards(){
-  const listOfCards = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb', 'fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'];
+  let symbols = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'];
+  const listOfCards = symbols.concat(symbols);
   shuffle(listOfCards);
   const cards = document.querySelectorAll('.card');
   for (let i=0; i<cards.length; i++){

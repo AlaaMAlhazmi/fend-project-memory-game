@@ -156,3 +156,31 @@ button {
   margin-right: -50%;
   transform: translate(-50%, -50%);
 }
+
+/*
+* Responsiveness
+*/
+
+@media (min-width: 361px){
+
+  .deck .card.show{
+      font-size: 50px;
+  }
+
+  .score-panel{
+    font-size: 36px;
+    width: 450px;
+  }
+
+  .messege{
+    height: 500px;
+  }
+
+  .messege p{
+    font-size: 36px;
+  }
+
+  h1 {
+    font-size: 50px;
+  }
+}
