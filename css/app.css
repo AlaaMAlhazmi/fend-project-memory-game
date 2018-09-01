@@ -121,6 +121,11 @@ h1 {
     cursor: pointer;
 }
 
+.timer{
+  margin-right: 10px;
+  display: inline-block;
+}
+
 /*
 * styles for the winning messege
 */

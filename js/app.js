@@ -5,6 +5,9 @@
 let openCards = [];
 let movesCounter = 0;
 let matchedCounter = 0;
+let time = 0;
+let IntervalId;
+let timerIsOn = false;
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -18,6 +21,9 @@ let matchedCounter = 0;
  */
 function respondToTheClick(evt) {
   if(evt.target.className === 'card'){
+    if(!timerIsOn){
+      timer();
+    }
     if (openCards.length < 2){
       displaySymbol(evt);
       addCardToList(evt);
@@ -25,15 +31,16 @@ function respondToTheClick(evt) {
         if (openCards[0].classList[1] === openCards[1].classList[1]){
           match();
           matchedCounter++;
+          incrementMovesCounter();
           if (matchedCounter === 8){
             setTimeout(won, 400);
           }
         }else{
           missmatch();
           setTimeout(hide, 700);
+          incrementMovesCounter();
         }
       }
-      incrementMovesCounter();
     }
   }
 }
@@ -73,9 +80,9 @@ function hide(){
 function incrementMovesCounter(){
   movesCounter++;
   document.querySelector('.moves').textContent = movesCounter;
-  if(movesCounter === 24){
+  if(movesCounter === 16){
     document.querySelectorAll('.fa-star')[2].className = "fa fa-star-o";
-  }else if (movesCounter === 32) {
+  }else if (movesCounter === 24) {
     document.querySelectorAll('.fa-star')[1].className = "fa fa-star-o";
   }
 }
@@ -83,8 +90,31 @@ function incrementMovesCounter(){
 //Winning functionality
 function won(){
   document.querySelector('.messege').classList.add('show');
+  document.querySelector('.time-results').innerHTML= "Your Time: "+ Math.floor(time/60)+":"+time % 60;
+  document.querySelector('.moves-results').innerHTML= "Number of moves: " + movesCounter;
+  const numberOfstars = document.querySelectorAll('.fa-star');
+  document.querySelector('.stars-results').innerHTML= "Star Rating: " + numberOfstars.length;
+  StopTimer();
 }
 
+//Timer functionality
+function timer(){
+  timerIsOn = true;
+  IntervalId = setInterval(function () {
+    time++;
+    let minutes = Math.floor(time/60);
+    let seconds = time % 60;
+    document.querySelector('.timer').innerHTML = minutes+":"+seconds;
+  }, 1000);
+}
+
+//Stop timer functionality
+function StopTimer(){
+  timerIsOn = false;
+  clearInterval(IntervalId);
+  document.querySelector('.timer').innerHTML = '0:00';
+  time=0;
+}
 
 /*
  * Display the cards on the page
@@ -149,6 +179,7 @@ function restartGame(){
   {
       document.querySelector('.messege').classList.remove('show')
   }
+  StopTimer();
 }
 
 ///////////Code Sarts Here///////////////////
